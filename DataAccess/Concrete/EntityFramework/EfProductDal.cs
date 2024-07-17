@@ -36,14 +36,19 @@ namespace DataAccess.Concrete.EntityFramework
 
         public Product Get(Expression<Func<Product, bool>> filter)
         {
-            throw new NotImplementedException();
+            using (NtierDbContext context = new NtierDbContext())
+            {
+                return  context.Set<Product>().SingleOrDefault(filter);
+            }
         }
 
         public List<Product> GetAll(Expression<Func<Product, bool>> filter = null)
         {
             using (NtierDbContext context = new NtierDbContext())
             {
-               return context.Products.ToList();
+                return filter == null
+                     ? context.Set<Product>().ToList()
+                     : context.Set<Product>().Where(filter).ToList();
             }
         }
 
@@ -55,7 +60,6 @@ namespace DataAccess.Concrete.EntityFramework
                 updatedEntity.State=EntityState.Modified;
                 context.SaveChanges();
             }
-
 
         }
     }
