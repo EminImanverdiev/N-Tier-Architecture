@@ -10,24 +10,52 @@ namespace DataAccess.Concrete.InMemoryDal
 {
     public class InMemoryProductDal : IProductDal
     {
+        List<Product> _products;
+        public InMemoryProductDal()
+        {
+            _products = new List<Product> {
+               new Product{CategoryId=1,ProductId=1,ProductName="Fincan",UnitPrice=15,UnitsInStock=10},    
+               new Product{CategoryId=1,ProductId=2,ProductName="Kamera",UnitPrice=500,UnitsInStock=3},
+               new Product{CategoryId=2,ProductId=3,ProductName="Telefon",UnitPrice=1500,UnitsInStock=10},
+               new Product{CategoryId=2,ProductId=4,ProductName="Sican",UnitPrice=150,UnitsInStock=190},
+               new Product{CategoryId=2,ProductId=5,ProductName="Klaviatura",UnitPrice=50,UnitsInStock=190},
+            };
+        }
         public void Add(Product product)
         {
-            throw new NotImplementedException();
+            _products.Add(product);
         }
-
         public void Delete(Product product)
         {
-            throw new NotImplementedException();
+            Product ProductToDelete = _products.SingleOrDefault(Product => Product.ProductId == product.ProductId);
+            if (ProductToDelete != null)
+            {
+                _products.Remove(ProductToDelete);
+            }
         }
 
         public List<Product> GetAll()
         {
-            throw new NotImplementedException();
+            return _products;
+        }
+
+        public List<Product> GetAllByCategory(int categoryId)
+        {
+           return _products.Where(p=>p.CategoryId==categoryId).ToList();
         }
 
         public void Update(Product product)
         {
-            throw new NotImplementedException();
+           Product ProductToUpdate = _products.SingleOrDefault(product => product.ProductId == product.ProductId);
+            if (ProductToUpdate != null)
+            {
+                ProductToUpdate.ProductId = product.ProductId;
+                ProductToUpdate.CategoryId = product.CategoryId;
+                ProductToUpdate.ProductName = product.ProductName;
+                ProductToUpdate.UnitPrice = product.UnitPrice;
+                ProductToUpdate.UnitsInStock = product.UnitsInStock;
+            }
+           
         }
     }
 }
