@@ -17,7 +17,7 @@ namespace Core.DataAccess.Abstract
         //Nuget basqalarin kodlarini istifade edeceyimiz yukluyeceyimiz yerdir.
         //Using c# aiddir .ve usimg bitdkden sonra gb deyir  sil meni Idisposiable pattern impdir
 
-        List<T> GetAll(Expression<Func<T, bool>> filter = null);
+        List<T> GetAll(Expression<Func<T, bool>>? filter = null);
         T Get(Expression<Func<T, bool>> filter);
         void Add(T entity);
         void Delete(T entity);

@@ -10,4 +10,8 @@
     <Folder Include="DataAccess\Concrete\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.32" />
+  </ItemGroup>
+
 </Project>

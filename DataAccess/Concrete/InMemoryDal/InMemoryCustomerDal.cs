@@ -26,7 +26,7 @@ namespace DataAccess.Concrete.InMemoryDal
             throw new NotImplementedException();
         }
 
-        public List<Customer> GetAll(Expression<Func<Customer, bool>> filter = null)
+        public List<Customer> GetAll(Expression<Func<Customer, bool>>? filter = null)
         {
             throw new NotImplementedException();
         }

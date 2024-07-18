@@ -45,7 +45,7 @@ namespace DataAccess.Concrete.InMemoryDal
             return _products;
         }
 
-        public List<Product> GetAll(Expression<Func<Product, bool>> filter = null)
+        public List<Product> GetAll(Expression<Func<Product, bool>>? filter = null)
         {
             throw new NotImplementedException();
         }
