@@ -7,6 +7,11 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            //ProductTest();
+        }
+
+        private static void ProductTest()
+        {
             ProductManager productManager = new ProductManager(new InMemoryProductDal());
             foreach (var product in productManager.GetAll())
             {
