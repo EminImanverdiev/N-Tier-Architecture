@@ -1,5 +1,4 @@
-﻿using Entities.Abstract;
-using Entities.Concrete;
+﻿using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +6,10 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Abstract
+namespace Core.DataAccess.Abstract
 {
     public interface IEntityRepository<T>
-        where T : class,IEntity,new()
+        where T : class, IEntity, new()
     {
         //Buradaki filter=null o demekdirki yeni filter vermesende olar vermedikde ise butun datalari getirecek
         //T:class class olmali deyil. Refeance tip ola bilir ola demekdir.
@@ -18,7 +17,7 @@ namespace DataAccess.Abstract
         //Nuget basqalarin kodlarini istifade edeceyimiz yukluyeceyimiz yerdir.
         //Using c# aiddir .ve usimg bitdkden sonra gb deyir  sil meni Idisposiable pattern impdir
 
-        List<T> GetAll(Expression<Func<T,bool>>filter=null);
+        List<T> GetAll(Expression<Func<T, bool>> filter = null);
         T Get(Expression<Func<T, bool>> filter);
         void Add(T entity);
         void Delete(T entity);
