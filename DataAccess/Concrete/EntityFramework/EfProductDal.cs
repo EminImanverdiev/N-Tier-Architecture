@@ -16,7 +16,7 @@ namespace DataAccess.Concrete.EntityFramework
     {
         public List<ProductDetailDto> GetProductDetails()
         {
-            using NtierDbContext context = new NtierDbContext();
+            using NtierDbContext context = new();
             var result = from p in context.Products
                          join c in context.Categories
                          on p.CategoryId equals c.CategoryId

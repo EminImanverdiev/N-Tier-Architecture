@@ -38,29 +38,29 @@ namespace Business.Concrete
         {
             if (DateTime.Now.Hour==22)
             {
-                return new ErrorDataResult();
+                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),true);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductListed);
         }
 
         public IDataResult<List<Product>> GetAllByCategoryId(int Id)
         {
-            return _productDal.GetAll(p => p.CategoryId == Id);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == Id));
         }
 
         public IDataResult<Product> GetById(int Id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Product>(_productDal.Get(p=>p.ProductId==Id));
         }
 
         public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
         {
-            return _productDal.GetAll(p=>p.UnitPrice>=min && p.UnitPrice<=max);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p=>p.UnitPrice>=min && p.UnitPrice<=max));
         }
 
         public IDataResult<List<ProductDetailDto>> GetProductDetails()
         {
-            return _productDal.GetProductDetails();
+            return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
     }
 }
