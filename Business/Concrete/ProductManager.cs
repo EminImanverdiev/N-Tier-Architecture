@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemoryDal;
 using Entities.Concrete;
@@ -20,9 +22,10 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
-        public void Add(Product product)
+        public IResult Add(Product product)
         {
             _productDal.Add(product);
+            return new Result(true,"Mehsul elave olundu.");
         }
 
         public List<Product> GetAll()
@@ -33,6 +36,11 @@ namespace Business.Concrete
         public List<Product> GetAllByCategoryId(int Id)
         {
             return _productDal.GetAll(p => p.CategoryId == Id);
+        }
+
+        public Product GetById(int Id)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Product> GetByUnitPrice(decimal min, decimal max)
