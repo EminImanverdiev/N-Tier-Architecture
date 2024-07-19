@@ -24,8 +24,13 @@ namespace Business.Concrete
 
         public IResult Add(Product product)
         {
+            if (product.ProductName.Length<2)
+            {
+                return new ErrorResult("Mehsulun adi en az 2 herf olmalidir.");
+                
+            }
             _productDal.Add(product);
-            return new Result(true,"Mehsul elave olundu.");
+            return new SuccessResult("Mehsul elave olundu.");
         }
 
         public List<Product> GetAll()
