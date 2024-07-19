@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -26,34 +27,38 @@ namespace Business.Concrete
         {
             if (product.ProductName.Length<2)
             {
-                return new ErrorResult("Mehsulun adi en az 2 herf olmalidir.");
+                return new ErrorResult(Messages.ProductNameInvalid);
                 
             }
             _productDal.Add(product);
-            return new SuccessResult("Mehsul elave olundu.");
+            return new SuccessResult(Messages.ProductAdded);
         }
 
-        public List<Product> GetAll()
+        public IDataResult<List<Product>> GetAll()
         {
-           return _productDal.GetAll();
+            if (DateTime.Now.Hour==22)
+            {
+                return new ErrorDataResult();
+            }
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),true);
         }
 
-        public List<Product> GetAllByCategoryId(int Id)
+        public IDataResult<List<Product>> GetAllByCategoryId(int Id)
         {
             return _productDal.GetAll(p => p.CategoryId == Id);
         }
 
-        public Product GetById(int Id)
+        public IDataResult<Product> GetById(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Product> GetByUnitPrice(decimal min, decimal max)
+        public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
         {
             return _productDal.GetAll(p=>p.UnitPrice>=min && p.UnitPrice<=max);
         }
 
-        public List<ProductDetailDto> GetProductDetails()
+        public IDataResult<List<ProductDetailDto>> GetProductDetails()
         {
             return _productDal.GetProductDetails();
         }
