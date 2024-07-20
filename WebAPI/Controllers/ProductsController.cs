@@ -20,10 +20,55 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpGet]
-        public IDataResult<List<Product>> GetAll()
+        [HttpGet("getall")]
+        public IActionResult GetAll()
         {
-            return new SuccessDataResult<List<Product>>();
+            var result=_productService.GetAll();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message );
+        }
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int productId)
+        {
+            var result=_productService.GetById(productId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message ); 
+        }
+        [HttpPost("add")]
+        public IActionResult Add(Product product) 
+        {
+            var result=_productService.Add(product);    
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
+        [HttpPut("update")]
+        public IActionResult Update(Product product)
+        {
+            var result = _productService.Update(product);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
+        [HttpDelete("delete")]
+        public IActionResult Delete(Product product)
+        {
+            var result = _productService.Delete(product);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
         }
     }
 }
