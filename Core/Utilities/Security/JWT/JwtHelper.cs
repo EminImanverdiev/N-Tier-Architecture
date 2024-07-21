@@ -7,7 +7,6 @@ using System.Text;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using Core.Utilities.Security.Encryption;
-using Core.Utilities.Security.Encyption;
 using Core.Utilities.Security.JWT;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
