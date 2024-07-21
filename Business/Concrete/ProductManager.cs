@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -28,9 +29,13 @@ namespace Business.Concrete
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            ValidationTool.Validate(new ProductValidator(),product);
-            _productDal.Add(product);
-            return new SuccessResult(Messages.ProductAdded);
+            if (CheckIfProductCountOfCategoryCorrect(product.CategoryId).Success && CheckIfProductNameExists(product.ProductName).Success)
+            {
+                _productDal.Add(product);
+                return new SuccessResult(Messages.ProductAdded);
+            }
+            return new ErrorResult();
+           
         }
         public IResult Delete(Product product)
         {
@@ -40,10 +45,6 @@ namespace Business.Concrete
 
         public IDataResult<List<Product>> GetAll()
         {
-            //if (DateTime.Now.Hour == 14)
-            //{
-            //    return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
-            //}
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductListed);
         }
 
@@ -72,5 +73,26 @@ namespace Business.Concrete
             _productDal.Update(product);
             return new SuccessResult(Messages.ProductUpdated);
         }
+        private IResult CheckIfProductCountOfCategoryCorrect(int categoryId)
+        {
+            var result = _productDal.GetAll(p=>p.CategoryId==categoryId).Count;
+            if (result>15)
+            {
+                return new ErrorResult(Messages.ProductCountOfCategoryError);
+            }
+            return new SuccessResult();
+
+        }
+        private IResult CheckIfProductNameExists(string productName)
+        {
+            var result = _productDal.GetAll(p => p.ProductName == productName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.ProductNameAlreadyExists);
+            }
+            return new SuccessResult();
+
+        }
+
     }
 }

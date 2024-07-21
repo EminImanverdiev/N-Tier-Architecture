@@ -15,5 +15,7 @@ namespace Business.Constants
         public static string ProductListed="Mehsul siralandi";
         internal static string ProductDeleted="Mehsul silindi";
         internal static string ProductUpdated="Mehsul yenilendi";
+        internal static string ProductCountOfCategoryError="Eyni mehsuldan 15-den artiq ola bilmez";
+        internal static string ProductNameAlreadyExists="Eyni mehsul adi artiq var";
     }
 }
