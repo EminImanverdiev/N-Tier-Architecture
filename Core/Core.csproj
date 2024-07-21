@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="DataAccess\Concrete\" />
-    <Folder Include="Utilities\Security\JWT\" />
   </ItemGroup>
 
   <ItemGroup>
