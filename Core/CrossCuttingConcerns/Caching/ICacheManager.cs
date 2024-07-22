@@ -13,6 +13,6 @@ namespace Core.CrossCuttingConcerns.Cashing
         void Add(string key,object value, int duration);
         bool IsAdd(string key);
         void Remove(string key);
-        bool RemoveByPattern(string key);
+        void RemoveByPattern(string key);
     }
 }
